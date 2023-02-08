@@ -1,0 +1,117 @@
+@property --rotate {
+  syntax: "<angle>";
+  initial-value: 132deg;
+  inherits: false;
+}
+
+:root {
+  --card-height: 65vh;
+  --card-width: calc(var(--card-height) / 1.5);
+}
+
+.memotest {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(20vw, 0fr));
+  gap: 1rem;
+}
+
+.memotest-item {
+  cursor: pointer;
+  padding: 0.5rem;
+  border: 1px solid rgb(102, 102, 102);
+  border-radius: 12px;
+  display: flex;
+  place-content: center;
+}
+
+.memotest-item:hover {
+  filter: drop-shadow(0 0 0px rgb(255, 255, 255, 60%));
+  color: rgb(255, 255, 255, 80%);
+}
+
+.card {
+  background: black;
+  cursor: pointer;
+  border: none;
+  position: relative;
+  border-radius: 12px;
+  display: flex;
+  place-content: center;
+  padding: .5rem;
+}
+
+.card:hover::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translate(-2%, -2%);
+  z-index: -1;
+  height: 105%;
+  width: 105%;
+  background: linear-gradient( 45deg , #67ff5d, #46e33c, #92c200, #67ff5d, #46e33c, #92c200);
+  background-size: 800%;
+  border-radius: 4px;
+  filter: blur(2rem);
+  animation: glowing 20s linear infinite;
+}
+
+.card img {
+  height: 15vh;
+  width: 20vw;
+}
+
+.winner {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  display: grid;
+  place-items: center;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.winner > div {
+  border: 1px solid #42d74c;
+  padding: 5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  background-color: black;
+  border-radius: 8px;
+  place-items: center;
+}
+
+.winner > div > button {
+  background-color: #42d74c;
+  padding: 1rem 5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  color: black;
+  border: none;
+}
+
+.winner > div > button:hover {
+  background-color: #67ff5d;
+}
+
+@keyframes glowing {
+  0% {
+    background-position: 0 0;
+  }
+
+  50% {
+    background-position: 400% 0;
+  }
+  
+  100% {
+    background-position: 0 0;
+  }
+}
+
+@media (min-width: 1000) {
+  .memotest {
+    grid-template-columns: repeat(4, minmax(15vw, 0fr));
+  }
+}
