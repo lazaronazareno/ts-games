@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import WpsGame from "./game";
+import './index.css'
 
 const WORDS = [
   'Lorem',
@@ -21,6 +22,11 @@ export default function WordsPerMinute() {
   const [topic, setTopic] = useState('')
   const [isTopic, setIsTopic] = useState(false)
   const [list, setList] = useState<string[]>([])
+  const [scores, setScores] = useState(() => {
+    const prevScores = window.localStorage.getItem('score')
+    return prevScores || []
+  })
+  console.log(scores)
 
   const handleTopic = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -43,15 +49,18 @@ export default function WordsPerMinute() {
       {list.length === 0 && (
         <>
           <h2>Type a topic for start playing...</h2>
-          <span>example : "anime"</span>
-          <form onSubmit={handleTopic}>
-            <input
-              type='text'
-              autoFocus
-              value={topic}
-              onChange={(e) => setTopic(e.target.value)}
-            />
-            <button type="submit">Submit</button>
+          <span>example : "anime", "flower", "space", etc</span>
+          <form className="wps-form" onSubmit={handleTopic}>
+            <div className="wps-form-input">
+              <input
+                type='text'
+                name=""
+                value={topic}
+                onChange={(e) => setTopic(e.target.value)}
+              />
+              <label>Topic</label>
+            </div>
+            <button type="submit">Set Topic</button>
           </form>
         </>
       )}
@@ -59,7 +68,17 @@ export default function WordsPerMinute() {
         <WpsGame
           list={list}
           topic={topic}
+          setList={setList}
+          setTopic={setTopic}
         />
+      )}
+      {scores.length !== 0 && (
+        <>
+          <h2>Ranking</h2>
+          {JSON.parse(scores).map((score: any) => {
+            return <span>{score.score} - {score.name}</span>
+          })}
+        </>
       )}
     </main>
   )

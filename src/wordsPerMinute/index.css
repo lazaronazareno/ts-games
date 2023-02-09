@@ -1,0 +1,56 @@
+button {
+  display: flex;
+  padding: .2rem;
+  border-radius: 12px;
+  border: .1rem solid #42d74c;
+  width: 100%;
+  place-content: center;
+}
+
+.wps-form-input, .wps-game-form-input {
+  position: relative;
+}
+
+.wps-form-input input, .wps-game-form-input input{
+  width: 100%;
+    padding: 10px 0;
+    color: #fff;
+    margin-bottom: 30px;
+    border: none;
+    border-bottom: 1px solid #fff;
+    outline: none;
+    background: transparent;
+}
+
+.wps-form-input label, .wps-game-form-input label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 10px 0;
+  font-size: 16px;
+  color: #fff;
+  pointer-events: none;
+  transition: .5s;
+}
+
+.wps-form-input input:focus ~ label,
+.wps-form-input input:valid,
+.wps-game-form-input input:focus ~ label,
+.wps-game-form-input input:valid {
+  top: -1.5rem;
+  left: 0;
+  color: #42d74c;
+}
+
+.wps-game {
+  display: flex;
+  gap: 1rem;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.wps-game-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
