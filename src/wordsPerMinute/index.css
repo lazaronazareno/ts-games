@@ -15,6 +15,43 @@ button:hover {
   color: black;
 }
 
+table {
+  border-collapse: collapse;
+}
+
+thead {
+  color: black;
+  background-color: #42d74c;
+}
+
+th {
+  border-top: none!important;
+}
+
+th:first-child, th:nth-child(2) {
+  border-right: 1px solid black!important;
+}
+
+th:first-child, td:first-child {
+  border-left: none!important;
+}
+
+th:last-child, td:last-child {
+  border-right: none!important;
+}
+
+td, th {
+  border: 1px solid #42d74c;
+  padding: 1rem;
+  font-size: 1.5rem;
+}
+
+tbody td:nth-child(1),
+tbody td:nth-child(2),
+tbody td:nth-child(3) {
+  border-bottom: none!important;
+}
+
 .wps-form, .wps-game-form {
   display: flex;
   flex-direction: column;
@@ -75,5 +112,11 @@ button:hover {
 @media (max-width: 600px) {
   .wps-game {
     flex-direction: column;
+  }
+}
+
+@media (max-width: 400px) {
+  .wps {
+    margin-top: 30vw;
   }
 }

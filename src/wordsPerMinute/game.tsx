@@ -11,11 +11,10 @@ interface Props {
   topic: string,
   setTopic: Function,
   setList: Function
+  setLoadingScores: Function
 }
 
-export default function WpsGame({ list, topic, setTopic, setList }: Props) {
-  console.log(list[(Math.random() * list.length)])
-  console.log(list)
+export default function WpsGame({ list, topic, setTopic, setList, setLoadingScores }: Props) {
   const [word, setWord] = useState(() => list[(Math.random() * list.length) | 0])
   const [characterCount, setCharacterCount] = useState(0)
   const [buffer, setBuffer] = useState('')
@@ -52,14 +51,15 @@ export default function WpsGame({ list, topic, setTopic, setList }: Props) {
     const prevScore = window.localStorage.getItem('score')
     if (prevScore) {
       const parsedPrevScore = JSON.parse(prevScore)
-      const obj = { score: characterCount, name: name }
+      const obj = { score: characterCount, name: name, topic: topic }
       window.localStorage.setItem('score', JSON.stringify([...parsedPrevScore, obj]))
     } else {
-      window.localStorage.setItem('score', JSON.stringify([{ score: characterCount, name: name }]))
+      window.localStorage.setItem('score', JSON.stringify([{ score: characterCount, name: name, topic: topic }]))
     }
 
     setName('')
     setBuffer('')
+    setLoadingScores(true)
     setWord(list[(Math.random() * list.length) | 0])
     setCharacterCount(0)
   }
@@ -92,6 +92,7 @@ export default function WpsGame({ list, topic, setTopic, setList }: Props) {
                 <div className="wps-form-input-content">
                   <input
                     type='text'
+                    autoFocus
                     placeholder=" "
                     value={buffer}
                     onChange={(e) => setBuffer(e.target.value)}

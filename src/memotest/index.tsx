@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { IMAGES } from "./images"
 import confetti from 'canvas-confetti'
-import './index.css'
+import './memotest.css'
 
 export default function Memotest() {
   const [guessed, setGuessed] = useState<string[]>([])
@@ -40,11 +40,17 @@ export default function Memotest() {
           return (
             <li
               key={image}
+              tabIndex={0}
               className="card"
               onClick={() => selected.length < 2 && setSelected((selected) => selected.concat(image))}
+              onKeyDown={(e) => (
+                ["Enter", " "].includes(e.key) &&
+                selected.length < 2 &&
+                setSelected((selected) => selected.concat(image)))
+              }
             >
               {selected.includes(image) || guessed.includes(image) ? (
-                <img alt='icon' src={url} />
+                <img className="selected" alt='icon' src={url} />
               ) : (
                 <img
                   src="https://icongr.am/clarity/application.svg?size=128&color=42d74c"

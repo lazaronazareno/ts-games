@@ -1,32 +1,26 @@
 import { useEffect, useState } from "react"
 import WpsGame from "./game";
 import './index.css'
-
-const WORDS = [
-  'Lorem',
-  'ipsum',
-  'dolor',
-  'vitae',
-  'consectetur',
-  'mauris',
-  'adipiscing',
-  'Phasellus',
-  'interdum'
-]
-
 interface Word {
   word: string;
+}
+
+type Score = {
+  name: string
+  score: number
+  topic: string
+}
+
+type ListScores = {
+  [key: string]: Score
 }
 
 export default function WordsPerMinute() {
   const [topic, setTopic] = useState('')
   const [isTopic, setIsTopic] = useState(false)
   const [list, setList] = useState<string[]>([])
-  const [scores, setScores] = useState<string[] | string>((): string[] | string => {
-    const prevScores = window.localStorage.getItem('score')
-    return prevScores || []
-  })
-  console.log(scores)
+  const [loadingScores, setLoadingScores] = useState(false)
+  const [scores, setScores] = useState<ListScores>()
 
   const handleTopic = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -44,8 +38,19 @@ export default function WordsPerMinute() {
     return () => setIsTopic(false)
   }, [isTopic]);
 
+  useEffect(() => {
+    const scoresStorage = window.localStorage.getItem('score')
+    if (scoresStorage) {
+      setScores(JSON.parse(scoresStorage))
+    } else {
+      setScores([])
+    }
+
+    setLoadingScores(false)
+  }, [list, topic, loadingScores])
+
   return (
-    <main style={{ gap: '1rem' }}>
+    <main className="wps" style={{ gap: '1rem' }}>
       {list.length === 0 && (
         <>
           <h2>Type a topic for start playing...</h2>
@@ -71,14 +76,40 @@ export default function WordsPerMinute() {
           topic={topic}
           setList={setList}
           setTopic={setTopic}
+          setLoadingScores={setLoadingScores}
         />
       )}
-      {scores.length !== 0 && (
+      {scores && (
         <>
           <h2>Ranking</h2>
-          {JSON.parse(scores).map((score: any) => {
-            return <span key={score.name - score.score}>{score.score} - {score.name}</span>
-          })}
+          <table>
+            <thead>
+              <tr>
+                <th>Points</th>
+                <th>User</th>
+                <th>Word Topic</th>
+              </tr>
+            </thead>
+            <tbody>
+              {scores!
+                .sort(
+                  (a: Score, b: Score) =>
+                    (a.score < b.score) ?
+                      1 :
+                      (a.score > b.score ? -1 : 0))
+                .map((score: any) => {
+                  return (
+                    <tr
+                      key={score.name - score.score - score.topic}
+                    >
+                      <td>{score.score}</td>
+                      <td>{score.name}</td>
+                      <td>{score.topic}</td>
+                    </tr>
+                  )
+                })}
+            </tbody>
+          </table>
         </>
       )}
     </main>
