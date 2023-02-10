@@ -11,16 +11,12 @@ type Score = {
   topic: string
 }
 
-type ListScores = {
-  [key: string]: Score
-}
-
 export default function WordsPerMinute() {
   const [topic, setTopic] = useState('')
   const [isTopic, setIsTopic] = useState(false)
   const [list, setList] = useState<string[]>([])
   const [loadingScores, setLoadingScores] = useState(false)
-  const [scores, setScores] = useState<ListScores>()
+  const [scores, setScores] = useState<Array<Score>>()
 
   const handleTopic = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -41,9 +37,14 @@ export default function WordsPerMinute() {
   useEffect(() => {
     const scoresStorage = window.localStorage.getItem('score')
     if (scoresStorage) {
-      setScores(JSON.parse(scoresStorage))
+      const sortedScore = JSON.parse(scoresStorage).sort(
+        (a: Score, b: Score) =>
+          (a.score < b.score) ?
+            1 :
+            (a.score > b.score ? -1 : 0))
+      setScores(sortedScore)
     } else {
-      setScores([])
+      setScores(scores)
     }
 
     setLoadingScores(false)
@@ -91,23 +92,17 @@ export default function WordsPerMinute() {
               </tr>
             </thead>
             <tbody>
-              {scores!
-                .sort(
-                  (a: Score, b: Score) =>
-                    (a.score < b.score) ?
-                      1 :
-                      (a.score > b.score ? -1 : 0))
-                .map((score: any) => {
-                  return (
-                    <tr
-                      key={score.name - score.score - score.topic}
-                    >
-                      <td>{score.score}</td>
-                      <td>{score.name}</td>
-                      <td>{score.topic}</td>
-                    </tr>
-                  )
-                })}
+              {scores.map((score: any) => {
+                return (
+                  <tr
+                    key={score.name - score.score - score.topic}
+                  >
+                    <td>{score.score}</td>
+                    <td>{score.name}</td>
+                    <td>{score.topic}</td>
+                  </tr>
+                )
+              })}
             </tbody>
           </table>
         </>
