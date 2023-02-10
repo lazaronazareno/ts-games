@@ -5,6 +5,7 @@
   justify-content: space-evenly;
   border-radius: 8px;
   border: 2px solid #3663af;
+  margin-top: 4rem;
 }
 
 .pokemon h1, .pokemon h2 {
@@ -20,6 +21,11 @@
   background: repeating-conic-gradient(white, #67c5e1 20deg);
   /* background: repeating-conic-gradient( hsl(0deg 0% 100% / 20%) 0deg 15deg, hsla(0,0%,100%,0) 0deg 30deg ) #67C5E2; */
   /* background: repeating-radial-gradient(white 0 10%, #67c5e1 30% 40%);*/
+}
+
+.background-image img {
+  aspect-ratio: 1/1;
+  width: 20rem;
 }
 
 .pokemon > div, .pokemon form, .pokemon-title div {
@@ -64,6 +70,7 @@
 @media (max-width: 850px) {
   .pokemon { 
     flex-direction: column;
+    margin-top: 5rem;
   }
 
   .pokemon-title h2 {
@@ -84,5 +91,11 @@
 
   .hide {
     display: none;
+  }
+}
+
+@media (max-width: 450px) {
+  .pokemon h1 {
+    font-size: 3.5rem;
   }
 }

@@ -70,7 +70,7 @@ export default function Pokemon() {
             height={512}
             style={{
               imageRendering: "pixelated",
-              filter: hasWon ? "" : "brightness(0) invert(0) drop-shadow(0px 0px 2rem white)"
+              filter: hasWon || isWrong ? "" : "brightness(0) invert(0) drop-shadow(0px 0px 2rem white)"
             }}
             src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${randomPokemon + 1}.png`}
             alt='Pokemon'
@@ -91,7 +91,6 @@ export default function Pokemon() {
             <form onSubmit={handleSubmit}>
               <input
                 type="text"
-                autoFocus
                 onChange={(e) => setPokemonName(e.target.value)}
               />
               <button type="submit">Submit</button>

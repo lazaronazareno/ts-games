@@ -1,11 +1,6 @@
 import { reset } from "canvas-confetti";
 import { useEffect, useState } from "react"
 import './index.css'
-
-interface Word {
-  word: string;
-}
-
 interface Props {
   list: string[],
   topic: string,
@@ -23,7 +18,7 @@ export default function WpsGame({ list, topic, setTopic, setList, setLoadingScor
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    if (buffer === word) {
+    if (buffer.toLowerCase() === word) {
       setWord(list[(Math.random() * list.length) | 0])
       setCharacterCount((characterCount) => characterCount + word.length)
     }

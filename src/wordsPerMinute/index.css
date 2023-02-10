@@ -110,6 +110,10 @@ tbody td:nth-child(3) {
 }
 
 @media (max-width: 600px) {
+  .wps {
+    margin-top: 5rem;
+  }
+
   .wps-game {
     flex-direction: column;
   }
