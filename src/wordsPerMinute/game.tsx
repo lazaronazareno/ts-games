@@ -58,10 +58,10 @@ export default function WpsGame({ list, topic, setTopic, setList }: Props) {
       window.localStorage.setItem('score', JSON.stringify([{ score: characterCount, name: name }]))
     }
 
-    /* setName('')
+    setName('')
     setBuffer('')
     setWord(list[(Math.random() * list.length) | 0])
-    setCharacterCount(0) */
+    setCharacterCount(0)
   }
 
   useEffect(() => {
@@ -80,6 +80,7 @@ export default function WpsGame({ list, topic, setTopic, setList }: Props) {
     <>
       {list.length > 0 && (
         <>
+          <h2>Type "{topic}" words</h2>
           <div className="wps-game" >
             <h2>Characters typed : {characterCount}</h2>
             <h2>Remaining time : {time}</h2>
@@ -88,13 +89,15 @@ export default function WpsGame({ list, topic, setTopic, setList }: Props) {
             <>
               <h1 style={{ fontSize: '3rem' }}>{word}</h1>
               <form className="wps-game-form" onSubmit={handleSubmit}>
-                <div className="wps-game-form-input">
+                <div className="wps-form-input-content">
                   <input
                     type='text'
+                    placeholder=" "
                     value={buffer}
                     onChange={(e) => setBuffer(e.target.value)}
+                    className="wps-form-input"
                   />
-                  <label>Word</label>
+                  <label className="wps-form-label">Word</label>
                 </div>
                 <button type="submit">Submit</button>
               </form>
@@ -103,25 +106,29 @@ export default function WpsGame({ list, topic, setTopic, setList }: Props) {
             characterCount > 0 && time === 0 ? (
               <button type='button' onClick={resetGame}>Play Again</button>
             ) : (
-              <button type='button' onClick={() => setTime(60)}>Play</button>
+              <>
+                <button type='button' onClick={() => setTime(60)}>Play</button>
+                <button type='button' onClick={resetTopic}>Change topic</button>
+              </>
             )
           )}
           {characterCount > 0 && time === 0 && (
-            <div>
+            <>
               <form className="wps-game-form">
                 <h2>Your score is : {characterCount}!</h2>
-                <div className="wps-game-form-input">
+                <div className="wps-form-input-content">
                   <input
                     type='text'
+                    placeholder=" "
                     value={name}
                     onChange={(e) => setName(e.target.value)}
+                    className="wps-form-input"
                   />
-                  <label>Name</label>
+                  <label className="wps-form-label">Name</label>
                 </div>
                 <button type="button" onClick={saveScore}>Save Score</button>
               </form>
-              <button type='button' onClick={resetTopic}>Change topic</button>
-            </div>
+            </>
           )}
         </>
       )}

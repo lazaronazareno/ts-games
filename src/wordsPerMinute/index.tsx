@@ -22,7 +22,7 @@ export default function WordsPerMinute() {
   const [topic, setTopic] = useState('')
   const [isTopic, setIsTopic] = useState(false)
   const [list, setList] = useState<string[]>([])
-  const [scores, setScores] = useState(() => {
+  const [scores, setScores] = useState<string[] | string>((): string[] | string => {
     const prevScores = window.localStorage.getItem('score')
     return prevScores || []
   })
@@ -51,14 +51,15 @@ export default function WordsPerMinute() {
           <h2>Type a topic for start playing...</h2>
           <span>example : "anime", "flower", "space", etc</span>
           <form className="wps-form" onSubmit={handleTopic}>
-            <div className="wps-form-input">
+            <div className="wps-form-input-content">
               <input
                 type='text'
-                name=""
+                placeholder=" "
                 value={topic}
                 onChange={(e) => setTopic(e.target.value)}
+                className="wps-form-input"
               />
-              <label>Topic</label>
+              <label className="wps-form-label">Topic</label>
             </div>
             <button type="submit">Set Topic</button>
           </form>
@@ -76,7 +77,7 @@ export default function WordsPerMinute() {
         <>
           <h2>Ranking</h2>
           {JSON.parse(scores).map((score: any) => {
-            return <span>{score.score} - {score.name}</span>
+            return <span key={score.name - score.score}>{score.score} - {score.name}</span>
           })}
         </>
       )}

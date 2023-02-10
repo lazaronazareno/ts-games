@@ -5,41 +5,24 @@ button {
   border: .1rem solid #42d74c;
   width: 100%;
   place-content: center;
+  cursor: pointer;
+  background-color: black;
 }
 
-.wps-form-input, .wps-game-form-input {
+button:hover {
+  background-color: #42d74c;
+  border-color: #42d74c;
+  color: black;
+}
+
+.wps-form, .wps-game-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.wps-form-input-content, .wps-game-form-input {
   position: relative;
-}
-
-.wps-form-input input, .wps-game-form-input input{
-  width: 100%;
-    padding: 10px 0;
-    color: #fff;
-    margin-bottom: 30px;
-    border: none;
-    border-bottom: 1px solid #fff;
-    outline: none;
-    background: transparent;
-}
-
-.wps-form-input label, .wps-game-form-input label {
-  position: absolute;
-  top: 0;
-  left: 0;
-  padding: 10px 0;
-  font-size: 16px;
-  color: #fff;
-  pointer-events: none;
-  transition: .5s;
-}
-
-.wps-form-input input:focus ~ label,
-.wps-form-input input:valid,
-.wps-game-form-input input:focus ~ label,
-.wps-game-form-input input:valid {
-  top: -1.5rem;
-  left: 0;
-  color: #42d74c;
 }
 
 .wps-game {
@@ -49,8 +32,48 @@ button {
   align-items: center;
 }
 
-.wps-game-form {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+.wps-form-label {
+  font-weight:normal;
+  position:absolute;
+  pointer-events:none;
+  top: 0;
+  left: 0;
+  padding: 10px 0;
+  font-size: 1.5rem;
+  color: #42d74c;
+  transition: .5s ease all; 
+  -moz-transition:0.2s ease all; 
+  -webkit-transition:0.2s ease all;
+}
+
+.wps-form-input {
+  display:block;
+  width:100%;
+  box-sizing: border-box;
+
+  padding: 10px 0;
+  border: none;
+  border-bottom: 1px solid #fff;
+  outline: none;
+  background: transparent;
+}
+
+.wps-form-input:focus {
+  outline:none;
+}
+
+.wps-form-input:focus ~ .wps-form-label{
+  top:-12px;
+  font-size:13px;
+}
+
+.wps-form-input:not(:placeholder-shown) ~ .wps-form-label {
+  top:-12px;
+  font-size:13px;
+}
+
+@media (max-width: 600px) {
+  .wps-game {
+    flex-direction: column;
+  }
 }
