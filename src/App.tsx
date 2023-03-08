@@ -4,6 +4,7 @@ import Memotest from "./memotest"
 import Header from "./Header"
 import Pokemon from "./pokemon"
 import WordsPerMinute from "./wordsPerMinute"
+import Quiz from "./multipleChoiceQuiz"
 
 function App() {
 
@@ -15,6 +16,7 @@ function App() {
         <Route path="/memotest" element={<Memotest />} />
         <Route path="/wpm" element={<WordsPerMinute />} />
         <Route path="/pokemon" element={<Pokemon />} />
+        <Route path="/quiz" element={<Quiz />} />
       </Routes>
     </>
   )

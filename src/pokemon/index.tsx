@@ -17,8 +17,6 @@ export default function Pokemon() {
   const [randomPokemon, setRandomPokemon] = useState(0)
   const [correctName, setCorrectName] = useState('')
 
-  console.log(randomPokemon)
-
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 

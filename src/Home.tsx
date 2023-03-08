@@ -7,6 +7,7 @@ export default function Home() {
       <Link to="/memotest">Memotest</Link>
       <Link to="/pokemon">Guess Pokemon</Link>
       <Link to="/wpm">Words Per Minute</Link>
+      <Link to="/quiz">Multiple Choice Quiz</Link>
     </main>
   );
 };
